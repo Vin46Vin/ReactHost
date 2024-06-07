@@ -1,16 +1,37 @@
+import { useState } from "react";
 import Tag from "./Tag.jsx";
 import "./TaskForm.css";
-import { useState } from "react";
 
-const TaskForm = () => {
-  const [TaskData, setTaskData] = useState({
+const TaskForm = ({ setTasks }) => {
+  const [taskData, setTaskData] = useState({
     task: "",
     status: "todo",
     tags: [],
   });
 
+  const checkTag = (tag) => {
+    return taskData.tags.some((item) => item === tag);
+  };
+
+  const selectTag = (tag) => {
+    if (taskData.tags.some((item) => item === tag)) {
+      const filterTags = taskData.tags.filter((item) => item !== tag);
+      setTaskData((prev) => {
+        return { ...prev, tags: filterTags };
+      });
+    } else {
+      setTaskData((prev) => {
+        return {
+          ...prev,
+          tags: [...prev.tags, tag],
+        };
+      });
+    }
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
+    console.log(name, value);
     setTaskData((prev) => {
       return { ...prev, [name]: value };
     });
@@ -18,25 +39,14 @@ const TaskForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(TaskData);
-  };
-
-  const checkTag = (tag) => {
-    return TaskData.tags.some((item) => item === tag);
-  };
-
-  const selectTag = (tag) => {
-    if (TaskData.tags.includes(tag)) {
-      setTaskData((prev) => ({
-        ...prev,
-        tags: prev.tags.filter((item) => item !== tag),
-      }));
-    } else {
-      setTaskData((prev) => ({
-        ...prev,
-        tags: [...prev.tags, tag],
-      }));
-    }
+    setTasks((prev) => {
+      return [...prev, taskData];
+    });
+    setTaskData({
+      task: "",
+      status: "todo",
+      tags: [],
+    });
   };
 
   return (
@@ -48,28 +58,29 @@ const TaskForm = () => {
           placeholder="Enter your task"
           name="task"
           onChange={handleChange}
+          value={taskData.task}
         />
-        <div className="task_form_bottom_line">
+        <div className="task_form_botton_line">
           <div>
             <Tag
               selectTag={selectTag}
               tagName="HTML"
-              selected={checkTag("HTML")}
+              selectd={checkTag("HTML")}
             />
             <Tag
               selectTag={selectTag}
               tagName="CSS"
-              selected={checkTag("CSS")}
+              selectd={checkTag("CSS")}
             />
             <Tag
               selectTag={selectTag}
               tagName="JavaScript"
-              selected={checkTag("JavaScript")}
+              selectd={checkTag("JavaScript")}
             />
             <Tag
               selectTag={selectTag}
               tagName="React"
-              selected={checkTag("React")}
+              selectd={checkTag("React")}
             />
           </div>
           <div>
@@ -77,7 +88,7 @@ const TaskForm = () => {
               className="task_status"
               name="status"
               onChange={handleChange}
-              value={TaskData.status}
+              value={taskData.task}
             >
               <option value="todo">To do</option>
               <option value="doing">Doing</option>

@@ -1,9 +1,10 @@
-.app {
-  display: grid;
-  grid-template-rows: 150px auto;
+.app{
+    display: grid;
+    grid-template-rows: 150px auto;
 }
-.app_main {
-  display: flex;
-  justify-content: space-evenly;
-  padding: 20px 8%;
+.app_main{
+    display: flex;
+    justify-content: space-evenly;
+    padding: 20px 8%;
 }
+

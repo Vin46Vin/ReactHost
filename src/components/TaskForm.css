@@ -21,13 +21,14 @@
   border-radius: 4px;
 }
 .task_input::placeholder {
-  color: #686868;
+  color: #1e89ed;
 }
 
-.task_form_bottom_line {
+.task_form_botton_line {
   display: flex;
   justify-content: space-between;
   align-items: center;
+
 }
 
 .task_status {
@@ -43,7 +44,7 @@
 .task_submit {
   font-size: 16px;
   font-weight: 500;
-  background-color: #6457f9;
+  background-color: #2f7fda;
   color: #ffffff;
   border: 1px solid #dcdcdc;
   padding: 3px 13px;
